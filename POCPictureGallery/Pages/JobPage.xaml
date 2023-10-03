@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="POCPictureGallery.Pages.JobPage"
+             xmlns:ViewModel="clr-namespace:POCPictureGallery.ViewModel"
+             x:DataType="ViewModel:JobViewModel"
+             Title="JobPage">
+    <VerticalStackLayout>
+        <Label 
+            Text="PhotoTest"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Job.Guid}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <HorizontalStackLayout>
+            <Label 
+            Text="Photos: "
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+            <Label 
+            Text="{Binding Job.Documents.Count}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        <Button 
+            Text="Go To PhotoPage!"
+            Clicked="Button_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

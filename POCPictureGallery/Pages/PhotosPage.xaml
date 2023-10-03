@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="POCPictureGallery.PhotosPage"             
+             xmlns:resource="clr-namespace:POCPictureGallery.Resources"
+             xmlns:ViewModel="clr-namespace:POCPictureGallery.ViewModels"
+             xmlns:Model="clr-namespace:POCPictureGallery.Model"
+             x:DataType="ViewModel:PhotosViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:IsStringNotNullOrWhiteSpaceConverter x:Key="IsStringNotNullOrWhiteSpaceConverter" />
+        </ResourceDictionary>
+        <Style TargetType="ContentView">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                            Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="{StaticResource Primary}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="63" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="63" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              BackgroundColor="{StaticResource Primary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="63" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="18"
+                   Source="back_white.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="OnBackButtonClicked"
+                        NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+            </Image>
+
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="1"
+                   VerticalTextAlignment="Center"
+                   FontSize="20"
+                   LineBreakMode="TailTruncation"
+                   TextColor="{StaticResource Secondary}" 
+                   Text="PhotoPage"/>
+
+        </Grid>
+        <ScrollView Grid.Row="1"
+                    Orientation="Vertical"
+                    Padding="15,0,15,0"
+                    BackgroundColor="{StaticResource White}">
+            <Grid x:Name="GridImage">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       Padding="0,8,0,4"
+                       Text="PhotoList"/>
+
+                <CollectionView Grid.Row="1"
+                                x:Name="CollectionViewPhotoList"
+                                ItemsSource="{Binding PhotoList}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="{OnIdiom Phone=4,Tablet=8}" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Model:Photo">
+                            <ContentView Padding="2,2,2,2">
+                                <AbsoluteLayout HeightRequest="{OnIdiom Phone=80,Tablet=120}">
+                                    <Image AbsoluteLayout.LayoutFlags="All"
+                                           AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                                           Aspect="AspectFill"
+                                           Source="{Binding GetFileLocation}" />
+                                </AbsoluteLayout>
+                            </ContentView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+
+        <Grid Grid.Row="3" BackgroundColor="{StaticResource White}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1" />
+                <RowDefinition Height="62" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="180" />
+            </Grid.ColumnDefinitions>
+
+            <BoxView Grid.Row="0" 
+                     Grid.ColumnSpan="3" 
+                     HeightRequest="1" 
+                     BackgroundColor="{StaticResource White}" />
+
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource Primary}"
+                    CornerRadius="0"
+                    Clicked="FromGallery_Clicked"
+                    TextColor="{StaticResource Secondary}" 
+                    Text="From Gallery"/>
+
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    BackgroundColor="{StaticResource Primary}"
+                    CornerRadius="0"
+                    Clicked="TakePicture_Clicked"
+                    TextColor="{StaticResource Secondary}" 
+                    Text="From Camera"/>
+
+        </Grid>
+    </Grid>
+</ContentPage>
