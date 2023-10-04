@@ -12,8 +12,8 @@ namespace POCPictureGallery.Pages
         public static MauiAppBuilder ConfigurePages(this MauiAppBuilder builder)
         {
 
-            builder.Services.AddTransient<JobPage>();
-            builder.Services.AddTransient<PhotosPage>();
+            builder.Services.AddSingleton<JobPage>();
+            builder.Services.AddSingleton<PhotosPage>();
             return builder;
         }
     }

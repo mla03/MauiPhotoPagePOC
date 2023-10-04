@@ -11,8 +11,8 @@ namespace POCPictureGallery.ViewModels
     {
         public static MauiAppBuilder ConfigureViewModels(this MauiAppBuilder builder)
         {
-            builder.Services.AddTransient<JobViewModel>();
-            builder.Services.AddTransient<PhotosViewModel>();
+            builder.Services.AddSingleton<JobViewModel>();
+            builder.Services.AddSingleton<PhotosViewModel>();
 
             return builder;
         }
